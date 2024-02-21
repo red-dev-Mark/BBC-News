@@ -8,9 +8,13 @@ const noona_url = new URL(
 );
 
 let newList = [];
+const menus = document.querySelectorAll(".buttons button");
+menus.forEach((menu) => {
+  menu.addEventListener("click", (e) => getNewsByCategoty(e));
+});
 
 const getLatestNews = async () => {
-  const resource = await fetch(BBC_url);
+  const resource = await fetch(noona_url);
   const data = await resource.json();
   newList = data.articles;
 
