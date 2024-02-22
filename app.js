@@ -103,3 +103,11 @@ const showInput = () => {
   // inputArea.classList.toggle("showInputArea")
   console.log('a')
 };
+
+const openNav = () => {
+  document.getElementById("mySidenav").style.width = "50vw";
+};
+
+const closeNav = () => {
+  document.getElementById("mySidenav").style.width = "0";
+};

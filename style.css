@@ -3,6 +3,19 @@ body {
   justify-content: center;
   background-color: black;
   margin: 0px;
+  position: relative;
+}
+#goToUp {
+  background-color: white;
+  position: fixed;
+  font-size: 1em;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  line-height: 150%;
+  left: 20px;
+  top: 20px;
+  border-radius: 10px;
 }
 .container {
   width: 80vw;
@@ -56,7 +69,7 @@ body {
   cursor: pointer;
 }
 
-#top .logo .search .input{
+#top .logo .search .input {
   width: 30%;
   display: flex;
   align-items: center;
@@ -64,7 +77,7 @@ body {
   position: absolute;
   display: none;
 }
-.showInputArea{
+.showInputArea {
   display: flex;
 }
 #top .logo .search .input #search-input {
@@ -144,8 +157,56 @@ p {
   bottom: 0;
 }
 
+.sidenav {
+  display: block;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(17, 17, 17, 0.8);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 60px 20px;
+}
 
+.sidenav button {
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  margin: 20px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
 
+.sidenav button:hover {
+  color: #818181;
+}
+
+.sidenav .closebtn {
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  font-size: 50px;
+}
+.sidenav .closebtn:hover {
+  color: #818181;
+}
+span {
+  font-size: 30px;
+  height: 0px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 0.5%;
+}
 @media (width <1360px) {
   .logo .img {
     width: 30%;
@@ -169,9 +230,9 @@ p {
     font-size: 1em;
     padding: 15px;
   }
-  #top .logo .search .input #search-input  {
+  #top .logo .search .input #search-input {
     width: 150px;
-    height: 10px;
+    height: 30px;
     font-size: 1em;
   }
   .logo .search .input #search-button {
@@ -197,14 +258,14 @@ p {
     padding-top: 50px;
   }
   #top .logo .img {
-    width: 30%;
+    width: 40%;
   }
   .buttons {
     display: none;
   }
-  #top .logo .search .input #search-input  {
+  #top .logo .search .input #search-input {
     width: 100px;
-    height: 10px;
+    height: 30px;
     font-size: 1em;
   }
   .logo .search .input #search-button {
@@ -238,8 +299,15 @@ p {
     position: static;
     display: inline-block;
   }
-  .showInputArea{
+  .sidenav,
+  span {
+    display: block;
+  }
+}
+
+@media (width > 800px) {
+  .sidenav,
+  span {
     display: none;
   }
-
 }
