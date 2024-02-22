@@ -1,45 +1,245 @@
 body {
-  margin: 0;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  margin: 0px;
 }
-#logo-img {
-  margin: 40px auto;
-  width: 30vw;
+.container {
+  width: 80vw;
+  background-color: white;
+  padding-top: 70px;
 }
-#logo-img img {
-  width: inherit;
-}
-.main-img img {
-  width: 100vw;
-}
-
-.news-board {
+#top {
+  z-index: 2;
+  position: fixed;
+  width: 80vw;
+  background-color: white;
   display: flex;
   flex-direction: column;
+  padding: 0 10px;
+  margin: 0;
+  border-bottom: 1px solid black;
+}
+.logo {
+  z-index: 2;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 10px;
+  height: auto;
+  margin: 0;
+  border-bottom: 1px solid black;
+}
+#top .logo .img {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+#top #logo .img .news-img {
+  width: 100%;
+}
+#top .logo .search {
+  width: 30%;
+  display: flex;
+  align-items: center;
+}
+
+#top .logo .search #search-show {
+  width: 30px;
+  font-size: 1em;
+  position: absolute;
+  right: 20px;
+  border-radius: 10px;
+}
+#top .logo .search #search-show:hover {
+  cursor: pointer;
+}
+
+#top .logo .search .input{
+  width: 30%;
+  display: flex;
+  align-items: center;
+  right: 50px;
+  position: absolute;
+  display: none;
+}
+.showInputArea{
+  display: flex;
+}
+#top .logo .search .input #search-input {
+  width: 200px;
+  font-size: 1em;
+  padding: 5px 10px;
+  position: absolute;
+  top: auto;
+  right: 70px;
+  border-radius: 10px;
+}
+#top .logo .search .input #search-button {
+  position: absolute;
+  right: 25px;
+  background-color: black;
+  color: white;
+}
+#top .logo .search .input #search-button:hover {
+  cursor: pointer;
+}
+
+.main-img img {
+  width: 100%;
+}
+.menu {
+  display: inline;
 }
 .buttons {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   flex-wrap: wrap;
-  padding: 20px;
-  border-bottom: 3px dashed black;
 }
 .buttons button {
-  font-size: 1.2em;
-  margin: 10px;
-  padding: 5px 10px;
-  border-radius: 10px;
+  padding: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+  background-color: white;
+  border: none;
 }
 .buttons button:hover {
-  font-size: 1.2em;
-  margin: 10px;
-  padding: 5px 10px;
-  border-radius: 10px;
+  background-color: rgba(0, 0, 0);
+  color: white;
 }
 
 .news {
-  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  margin: 30px 50px;
+  border: 1px solid black;
+  height: 300px;
 }
 .news-img {
-  border: 1px solid black;
-  max-width: 100%;
+  width: 40%;
+}
+.news-img img {
+  width: 100%;
+  height: 100%;
+}
+.news-content {
+  width: 60%;
+  position: relative;
+}
+.news-content h2,
+p {
+  margin: 10px;
+}
+.news-content h2 {
+  font-size: 1.5em;
+}
+.news-content p {
+  font-size: 1em;
+  line-height: 1.5em;
+}
+.news-content #time {
+  position: absolute;
+  bottom: 0;
+}
+
+
+
+@media (width <1360px) {
+  .logo .img {
+    width: 30%;
+  }
+  .buttons button {
+    font-size: 1em;
+  }
+  .news {
+    height: 200px;
+  }
+  .news-content h2 {
+    font-size: 1.2em;
+  }
+  .news-content p {
+    font-size: 0.8em;
+  }
+}
+
+@media (width <1000px) {
+  .buttons button {
+    font-size: 1em;
+    padding: 15px;
+  }
+  #top .logo .search .input #search-input  {
+    width: 150px;
+    height: 10px;
+    font-size: 1em;
+  }
+  .logo .search .input #search-button {
+    position: absolute;
+    right: 5px;
+  }
+  .news {
+    height: 200px;
+  }
+  .news-content h2 {
+    font-size: 1em;
+  }
+  .news-content p {
+    font-size: 0.7em;
+  }
+  .news-content #time {
+    display: none;
+  }
+}
+
+@media (width <870px) {
+  .container {
+    padding-top: 50px;
+  }
+  #top .logo .img {
+    width: 30%;
+  }
+  .buttons {
+    display: none;
+  }
+  #top .logo .search .input #search-input  {
+    width: 100px;
+    height: 10px;
+    font-size: 1em;
+  }
+  .logo .search .input #search-button {
+    position: absolute;
+    right: 5px;
+  }
+  .news-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .news {
+    flex-direction: column;
+    overflow: hidden;
+    margin: 20px 30px;
+    border: 1px solid black;
+    width: 80%;
+    height: auto;
+  }
+  .news-img {
+    width: 100%;
+  }
+  .news-img img {
+    width: 100%;
+  }
+  .news-content {
+    width: 100%;
+    position: relative;
+  }
+  .news-content #time {
+    position: static;
+    display: inline-block;
+  }
+  .showInputArea{
+    display: none;
+  }
+
 }

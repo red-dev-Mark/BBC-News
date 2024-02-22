@@ -10,30 +10,40 @@ const noona_url = new URL(
   `https://markwon-jsstudy-news.netlify.app/top-headlines`
 );
 
-let newList = [];
+let newsList = [];
+const newsBoard = document.querySelector(".news-board");
+const buttons = document.querySelectorAll("button");
+buttons.forEach((btn) => {
+  return btn.addEventListener("click", (e) => {
+    return getNewsByCategory(e);
+  });
+});
 const keyword = document.querySelector("#search-input");
-const menus = document.querySelectorAll(".buttons button");
-menus.forEach((menu) =>
-  menu.addEventListener("click", (e) => getNewsByCategoty(e))
-);
+const inputBtn = document.querySelector("#search-button");
+inputBtn.addEventListener("click", () => getNewsByKeyword());
+keyword.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") return getNewsByKeyword();
+});
 
 const getLatestNews = async () => {
   const response = await fetch(noona_url);
   const data = await response.json();
-  newsList = data.articles;
 
+  newsList = data.articles;
   render();
 };
 
-const getNewsByCategoty = async (e) => {
-  const category = e.target.textContent.toLowerCase();
+getLatestNews();
+
+const getNewsByCategory = async (e) => {
+  let category = e.target.textContent.toLowerCase();
   const url = new URL(
     `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
   );
   const response = await fetch(url);
   const data = await response.json();
-  newsList = data.articles;
 
+  newsList = data.articles;
   render();
 };
 
@@ -43,35 +53,51 @@ const getNewsByKeyword = async () => {
   );
   const response = await fetch(url);
   const data = await response.json();
-  newsList = data.articles;
 
+  newsList = data.articles;
+  console.log(data);
   render();
   keyword.value = "";
 };
 
 const render = () => {
-  const showNews = newsList
+  const newsHTML = newsList
     .map((news) => {
-      return `<div class="row news">
-    <div class="col-lg-4">
-      <img class="news-img" src="${news.urlToImage}" alt="">
-    </div>
-    <div class="col-lg-8 context">
-      <h2>
-        ${news.title}
-      </h2>
-      <p>
-      ${news.description}
-      </p>
-      <div>
-      ${news.publishedAt}
-      </div>
-    </div>
-  </div>`;
+      if (news.urlToImage !== null) {
+        return `
+        <div class="news">
+            <div class="news-img">
+                <img src="${
+                  news.urlToImage !== null
+                    ? news.urlToImage
+                    : "https://www.bbcstudios.com/Resources/NewBBCSFooterlogo.svg"
+                }">
+            </div>
+            <div class="news-content">
+                <h2>${news.title !== null ? news.title : "NONE"}
+                  </h2>
+                <p>${news.description !== null ? news.description : "NONE"}</p>
+                <p id="time">${
+                  news.publishedAt !== null ? news.publishedAt : "NONE"
+                } - 
+                  ${news.author !== null ? news.author : "NONE"} - 
+                  ${news.source.name}</p>
+            </div>
+        </div>`;
+      }
     })
     .join("");
 
-  document.querySelector(".news-board").innerHTML = showNews;
+  newsBoard.innerHTML = newsHTML;
 };
 
-getLatestNews();
+const showInput = () => {
+  const inputArea = document.querySelector("#top .logo .search .input");
+  if (inputArea.style.display === "flex") {
+    inputArea.style.display = "none";
+  } else {
+    inputArea.style.display = "flex";
+  }
+  // inputArea.classList.toggle("showInputArea")
+  console.log('a')
+};
