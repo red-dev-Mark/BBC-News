@@ -38,7 +38,8 @@ getLatestNews();
 const getNewsByCategory = async (e) => {
   let category = e.target.textContent.toLowerCase();
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+    // `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+    `https://markwon-jsstudy-news.netlify.app/top-headlines?category=${category}`
   );
   const response = await fetch(url);
   const data = await response.json();
@@ -49,7 +50,8 @@ const getNewsByCategory = async (e) => {
 
 const getNewsByKeyword = async () => {
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&q=${keyword.value}&apiKey=${API_KEY}`
+    // `https://newsapi.org/v2/top-headlines?country=us&q=${keyword.value}&apiKey=${API_KEY}`
+    `https://markwon-jsstudy-news.netlify.app/top-headlines?q=${keyword.value}`
   );
   const response = await fetch(url);
   const data = await response.json();
