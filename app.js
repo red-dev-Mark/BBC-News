@@ -6,9 +6,7 @@ const BBC_url = new URL(
 const Times_url = new URL(
   `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
 );
-const noona_url = new URL(
-  `https://markwon-jsstudy-news.netlify.app/top-headlines`
-);
+let url = new URL(`https://markwon-jsstudy-news.netlify.app/top-headlines`);
 
 let newsList = [];
 const newsBoard = document.querySelector(".news-board");
@@ -25,40 +23,60 @@ keyword.addEventListener("keypress", function (e) {
   if (e.key === "Enter") return getNewsByKeyword();
 });
 
-const getLatestNews = async () => {
-  const response = await fetch(noona_url);
-  const data = await response.json();
+const errorRender = (errorMessage) => {
+  const errorHTML = `<div class = "alert alert-danger" role = "alert">
+  ${errorMessage}
+  </div>`;
 
-  newsList = data.articles;
-  render();
+  document.querySelector(".news-board").innerHTML = errorHTML;
+};
+
+//매개변수가 있을 때 : 함수 호출 시 인자를 받음 (url) getNews 속 url은 인자의 url -> 인자로 전달되는 것이 변수 url
+// 없을 때 : 함수 호출 시 인자가 없어도 됨 (변수 url) getNews 속에서 url이 변수 url을 받음
+const getNews = async () => {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    if (response.status === 200) {
+      if (data.articles.length === 0) {
+        throw new Error("No result for this search..");
+      } else {
+        newsList = data.articles;
+        render();
+      }
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    errorRender(error.message);
+    console.log("error : ", error.message);
+  }
+};
+
+const getLatestNews = async () => {
+  // getNews(url);
+  getNews();
 };
 
 getLatestNews();
 
 const getNewsByCategory = async (e) => {
   let category = e.target.textContent.toLowerCase();
-  const url = new URL(
+  url = new URL(
     // `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
     `https://markwon-jsstudy-news.netlify.app/top-headlines?category=${category}`
   );
-  const response = await fetch(url);
-  const data = await response.json();
-
-  newsList = data.articles;
-  render();
+  getNews(url);
+  // getNews();
 };
 
 const getNewsByKeyword = async () => {
-  const url = new URL(
+  url = new URL(
     // `https://newsapi.org/v2/top-headlines?country=us&q=${keyword.value}&apiKey=${API_KEY}`
     `https://markwon-jsstudy-news.netlify.app/top-headlines?q=${keyword.value}`
   );
-  const response = await fetch(url);
-  const data = await response.json();
-
-  newsList = data.articles;
-  console.log(data);
-  render();
+  getNews(url);
+  // getNews();
   keyword.value = "";
 };
 
@@ -101,7 +119,7 @@ const showInput = () => {
     inputArea.style.display = "flex";
   }
   // inputArea.classList.toggle("showInputArea")
-  console.log('a')
+  console.log("a");
 };
 
 const openNav = () => {
