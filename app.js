@@ -8,6 +8,11 @@ const Times_url = new URL(
 );
 let url = new URL(`https://markwon-jsstudy-news.netlify.app/top-headlines`);
 
+let totalResults = 0;
+let page = 1;
+const pageSize = 10;
+const groupSize = 5;
+
 let newsList = [];
 const newsBoard = document.querySelector(".news-board");
 const buttons = document.querySelectorAll("button");
@@ -22,7 +27,7 @@ inputBtn.addEventListener("click", () => getNewsByKeyword());
 keyword.addEventListener("keypress", function (e) {
   if (e.key === "Enter") return getNewsByKeyword();
 });
-
+//왜 이 함수가 아래에 있으면 먼저 선언되어야 한다고 나오는가
 const errorRender = (errorMessage) => {
   const errorHTML = `<div class = "alert alert-danger" role = "alert">
   ${errorMessage}
@@ -35,14 +40,20 @@ const errorRender = (errorMessage) => {
 // 없을 때 : 함수 호출 시 인자가 없어도 됨 (변수 url) getNews 속에서 url이 변수 url을 받음
 const getNews = async () => {
   try {
+    url.searchParams.set("page", page);
+    url.searchParams.set("pageSize", pageSize);
+
     const response = await fetch(url);
+
     const data = await response.json();
     if (response.status === 200) {
       if (data.articles.length === 0) {
         throw new Error("No result for this search..");
       } else {
         newsList = data.articles;
+        totalResults = data.totalResults;
         render();
+        paginationRender();
       }
     } else {
       throw new Error(data.message);
@@ -128,4 +139,31 @@ const openNav = () => {
 
 const closeNav = () => {
   document.getElementById("mySidenav").style.width = "0";
+};
+
+const paginationRender = () => {
+  const totalPages = Math.ceil(totalResults / pageSize);
+  const pageGroup = Math.ceil(page / groupSize);
+  const lastPage = pageGroup * groupSize;
+  if (lastPage > totalPages) {
+    lastPage = totalPages;
+  }
+  const firstPage =
+    lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+
+  let paginationHTML = "";
+
+  for (let i = firstPage; i <= lastPage; i++) {
+    paginationHTML += `<li class="page-item" ${
+      i === page ? "active" : ""
+    } onclick = "moveToPage(${i})"><a class="page-link">${i}</a></li>`;
+  }
+
+  document.querySelector(".pagination").innerHTML = paginationHTML;
+};
+
+let moveToPage = (pageNum) => {
+  console.log("MMMM", pageNum);
+  getNews();
+  page = pageNum;
 };

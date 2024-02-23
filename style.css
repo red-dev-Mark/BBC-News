@@ -207,6 +207,13 @@ span {
   text-align: center;
   line-height: 0.5%;
 }
+.pagination {
+  justify-content: center;
+}
+.pagination a{
+  margin: 5px;
+  margin-bottom: 20px;
+}
 @media (width <1360px) {
   .logo .img {
     width: 30%;
