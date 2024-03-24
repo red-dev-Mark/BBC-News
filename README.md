@@ -1,6 +1,6 @@
 # BBC News with API
 - 아래 url을 클릭하시면 게임을 체험해보실 수 있습니다:)
-- https://markwon-jsstudy-news.netlify.app/
+- https://mk-bbc-news-api.netlify.app
 
 ## 💠 소개 💠
 - 1부터 100까지의 숫자 중 정답을 맞추는 게임입니다.
