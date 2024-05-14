@@ -1,4 +1,4 @@
-# BBC News with API
+# BBC News
 JavaScript와 API를 사용해 작성한 BBC 뉴스 페이지입니다.
 
 ## 💠 New Update 💠
